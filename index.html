@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Calorie Intake Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Daily Calorie Intake Tracker</h1>
+            <div class="date-display" id="currentDate"></div>
+        </header>
+
+        <div class="summary-section">
+            <div class="summary-card">
+                <h3>Total Calories</h3>
+                <p class="summary-value" id="totalCalories">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Meals Logged</h3>
+                <p class="summary-value" id="totalMeals">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Daily Goal</h3>
+                <p class="summary-value" id="dailyGoal">2000</p>
+            </div>
+        </div>
+
+        <div class="add-meal-section">
+            <h2>Add New Meal</h2>
+            <form id="mealForm">
+                <div class="form-group">
+                    <label for="mealName">Meal Name</label>
+                    <input type="text" id="mealName" required placeholder="e.g., Breakfast, Lunch, Snack">
+                </div>
+
+                <div class="form-group">
+                    <label for="foodItem">Food Item</label>
+                    <input type="text" id="foodItem" required placeholder="e.g., Chicken Salad">
+                </div>
+
+                <div class="form-group">
+                    <label for="calories">Calories</label>
+                    <input type="number" id="calories" required min="0" placeholder="e.g., 350">
+                </div>
+
+                <div class="form-group">
+                    <label for="foodImage">Food Image (Optional)</label>
+                    <input type="file" id="foodImage" accept="image/*">
+                    <div id="imagePreview" class="image-preview"></div>
+                </div>
+
+                <button type="submit" class="btn-primary">Add Meal</button>
+            </form>
+        </div>
+
+        <div class="meals-section">
+            <h2>Today's Meals</h2>
+            <div id="mealsList" class="meals-list">
+                <p class="empty-message">No meals logged yet. Add your first meal above!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
