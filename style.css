@@ -9,6 +9,7 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     padding: 20px;
+    perspective: 1000px;
 }
 
 .container {
@@ -18,6 +19,19 @@ body {
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     padding: 30px;
+    animation: containerFadeIn 0.8s ease-out;
+    transform-style: preserve-3d;
+}
+
+@keyframes containerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) rotateX(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
 }
 
 header {
@@ -31,6 +45,17 @@ header h1 {
     color: #333;
     font-size: 2.5em;
     margin-bottom: 10px;
+    animation: titleFloat 3s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes titleFloat {
+    0%, 100% {
+        transform: translateY(0) rotateX(0);
+    }
+    50% {
+        transform: translateY(-10px) rotateX(5deg);
+    }
 }
 
 .date-display {
@@ -52,6 +77,37 @@ header h1 {
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: cardSlideIn 0.6s ease-out backwards;
+}
+
+.summary-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.summary-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.summary-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.summary-card:hover {
+    transform: translateY(-10px) rotateX(10deg) scale(1.05);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.6);
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px) rotateY(-20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotateY(0);
+    }
 }
 
 .summary-card h3 {
@@ -71,6 +127,19 @@ header h1 {
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 30px;
+    animation: sectionSlideUp 0.7s ease-out;
+    transform-style: preserve-3d;
+}
+
+@keyframes sectionSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) rotateX(-15deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
 }
 
 .add-meal-section h2 {
@@ -141,15 +210,26 @@ header h1 {
     cursor: pointer;
     width: 100%;
     transition: transform 0.2s, box-shadow 0.2s;
+    transform-style: preserve-3d;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    transform: translateY(-4px) translateZ(20px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
 }
 
 .btn-primary:active {
-    transform: translateY(0);
+    transform: translateY(-2px) translateZ(10px) scale(0.98);
+    animation: buttonPulse 0.3s ease;
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        transform: scale(0.98);
+    }
+    50% {
+        transform: scale(1.02);
+    }
 }
 
 .meals-section h2 {
@@ -180,11 +260,25 @@ header h1 {
     grid-template-columns: auto 1fr auto auto;
     gap: 20px;
     align-items: center;
-    transition: box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    animation: mealCardAppear 0.5s ease-out;
 }
 
 .meal-card:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px) translateZ(15px) rotateX(5deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes mealCardAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) rotateY(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotateY(0);
+    }
 }
 
 .meal-image {
@@ -193,6 +287,12 @@ header h1 {
     border-radius: 10px;
     object-fit: cover;
     background: #f0f0f0;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.meal-card:hover .meal-image {
+    transform: scale(1.1) rotateZ(5deg);
 }
 
 .meal-image.placeholder {
@@ -239,11 +339,13 @@ header h1 {
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
-    transition: background 0.3s;
+    transition: transform 0.3s, background 0.3s;
+    transform-style: preserve-3d;
 }
 
 .btn-delete:hover {
     background: #ee3344;
+    transform: translateZ(10px) rotateZ(-5deg);
 }
 
 @media (max-width: 768px) {
@@ -266,5 +368,123 @@ header h1 {
 
     .summary-section {
         grid-template-columns: 1fr;
+    }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.autocomplete-suggestions {
+    position: absolute;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: calc(100% - 4px);
+    margin-top: 5px;
+    animation: suggestionsDropdown 0.3s ease-out;
+}
+
+@keyframes suggestionsDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) rotateX(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+.autocomplete-item {
+    padding: 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.autocomplete-item:hover {
+    background: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.food-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.food-calories {
+    font-size: 0.9em;
+    color: #667eea;
+    margin-top: 4px;
+}
+
+.analyzing-badge {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    margin-left: 10px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+.form-group {
+    position: relative;
+}
+
+.calorie-suggestion {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    background: #667eea;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    cursor: pointer;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

@@ -38,12 +38,13 @@
 
                 <div class="form-group">
                     <label for="foodItem">Food Item</label>
-                    <input type="text" id="foodItem" required placeholder="e.g., Chicken Salad">
+                    <input type="text" id="foodItem" required placeholder="e.g., Chicken Salad" autocomplete="off">
+                    <div id="autocompleteSuggestions" class="autocomplete-suggestions"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="calories">Calories</label>
-                    <input type="number" id="calories" required min="0" placeholder="e.g., 350">
+                    <label for="calories">Calories <span id="calorieStatus"></span></label>
+                    <input type="number" id="calories" min="0" placeholder="Auto-calculated or enter manually">
                 </div>
 
                 <div class="form-group">
